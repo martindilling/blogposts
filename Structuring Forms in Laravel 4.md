@@ -1,4 +1,4 @@
-So... building forms in Laravel 4. 
+So... structuring forms in Laravel 4. 
 Over the past year I've practiced a lot, and made countless small, useless, never-to-see-the-light-of-day projects in Laravel, to get better at structuring applications. One of the things that have annoyed me the most is creating form templates, Laravel have a great FormBuilder class that makes it very easy to build a basic form fast.
 
 For example an inputbox and label for a title:
