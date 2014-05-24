@@ -3,14 +3,14 @@ Over the past year I've practiced a lot, and made countless small, useless, neve
 
 For example an inputbox and label for a title:
 
-´´´´
+```
 {{ Form::label('title', 'Title:') }}
 {{ Form::text('title', null) }}
-´´´´
+```
 
 But when there is need for a little more markup, classes, placeholders, and most important when you need a lot of form elements. Then it gets a little "clunky" and repetitative, for example:
 
-´´´´
+```
 <!-- Text -->
 <div class="form-group {{ $errors->has('title') ? 'has-error' : '' }}">
     {{ Form::label('title', 'Title:', ['class' => 'col-sm-2 col-md-2 control-label']) }}
@@ -43,7 +43,7 @@ But when there is need for a little more markup, classes, placeholders, and most
         {{ $errors->has('body') ? $errors->first('body', '<span class="help-block">:message</span>'): '' }}
     </div>
 </div>
-´´´´
+```
 
 Now imagine you have a lot of different forms using the same markup, and you then need to change the markup for the text input "block"... not funny.
 
@@ -51,11 +51,11 @@ Now imagine you have a lot of different forms using the same markup, and you the
 
 I already saw a great solution to this problem in a video on Laracasts: [Form Macros for the Win](https://laracasts.com/lessons/form-macros-for-the-win). You need a subscription to see the video (which I would recommend you to get anyway, you won't regret it ;) ), but you can see the code here: [FormBuilder.php](https://github.com/laracasts/Laravel-Form-Macros-for-the-Win/blob/master/app/Acme/Html/FormBuilder.php). What he does is extending Laravels own FormBuilder and generating the field "blocks". And ends up being able to use this in his views:
 
-´´´´
+```
 {{ Form::textField('username', 'Username:') }}
 {{ Form::textField('email', 'Email:') }}
 {{ Form::textField('age', 'Age:') }}
-´´´´
+```
 
 This seems very good and DRY, but I still see it as a problem if you would need to change any of the markup. For some cases I would definetly go with this approach, but probably not in most cases.
 
@@ -75,7 +75,7 @@ I've created a partial view for each form element, so in my views folder I have 
 
 Not going to show all the files here, but here is my `text.blade.php`:
 
-´´´´
+```
 {{--
 @param  string  $name
 @param  string  $label
@@ -89,14 +89,14 @@ Not going to show all the files here, but here is my `text.blade.php`:
         {{ $errors->has($name) ? $errors->first($name, '<span class="help-block">:message</span>'): '' }}
     </div>
 </div>
-´´´´
+```
 
 The comment at the start of the file is just to show what data you need to pass when including the view.  
 And then I have my messy form element with classes, placeholders, and handeling error styling.
 
 Now I can easily build a form that is easy to understand, and reuse the elements to avoid duplicating code:
 
-´´´´
+```
 @include('form.text', [
     'name'        => 'title',
     'label'       => 'Title:*',
@@ -121,7 +121,7 @@ Now I can easily build a form that is easy to understand, and reuse the elements
     'placeholder' => 'Your blog post',
     'rows'        => 15,
 ])
-´´´´
+```
 
 I'm not really the big writer, but this was something that worked for me, so I thought it could maybe help someone else :)
 
